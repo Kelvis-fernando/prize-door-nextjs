@@ -1,14 +1,17 @@
-import type { NextPage } from "next";
-import styles from "../styles/Home.module.css";
-
 import Gift from "../components/Gift";
+import Door from "../components/Door";
+import DoorModel from "../model/door";
+import { useState } from "react";
 
-const Home: NextPage = () => {
+function Home() {
+  const [d1, setD1] = useState(new DoorModel(1, false, true));
+
   return (
-    <div>
+    <div style={{ display: "flex" }}>
       <Gift />
+      <Door door={d1} />
     </div>
   );
-};
+}
 
 export default Home;
