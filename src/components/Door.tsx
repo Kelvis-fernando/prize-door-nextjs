@@ -1,27 +1,30 @@
 import styles from "../styles/Door.module.css";
-import DoorModel from "../model/door";
+import { DoorModel } from "../model/door";
+import { toggleSelection } from "../model/door";
 import { useEffect, useState } from "react";
 
 interface DoorProps {
-  door?: DoorModel;
+  value: DoorModel;
+  onChange: (newDoor: DoorModel) => void;
 }
 
 function Door(props: DoorProps) {
-  const { door } = props;
+  const value = props.value;
   const [doorIsSelected, setDoorIsSelected] = useState<boolean | undefined>(
     false
   );
+  const toggleSelectionS = () => props.onChange(toggleSelection());
 
   useEffect(() => {
-    setDoorIsSelected(door?.selected);
+    setDoorIsSelected(value?.selected);
     console.log(doorIsSelected);
-  }, []);
+  }, [value, doorIsSelected]);
 
   return (
-    <div className={styles.area}>
+    <div className={styles.area} onClick={toggleSelectionS}>
       <div className={doorIsSelected ? styles.selected : styles.structure}>
         <div className={styles.door}>
-          <div className={styles.number}>{door?.number}</div>
+          <div className={styles.number}>{value?.number}</div>
           <div className={styles.doorHandle}></div>
         </div>
       </div>
